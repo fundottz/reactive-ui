@@ -1,7 +1,12 @@
 import React, { Component } from 'react'
+import 'event-source-polyfill/src/eventsource';
 
 const defaultPortfolio = {
   positions: []
+}
+
+function financial(x) {
+  return x;
 }
 
 class PortfolioSection extends Component {
@@ -43,7 +48,23 @@ class PortfolioSection extends Component {
     return (
       <div className="container mt-3">
         <h1 className="App-title text-primary mb-3">Realtime portfolio</h1>
-        <table className="table">
+        <div className="row">
+          <div className="col-md">
+            <h4>Quotes</h4>
+            <div className="btn-group btn-toggle">
+              <button className="btn btn-sm btn-default">ON</button>
+              <button className="btn btn-sm btn-primary active">OFF</button>
+            </div>
+          </div>
+          <div className="col-md">
+            <h4>Trades</h4>
+            <div className="btn-group btn-toggle">
+              <button className="btn btn-sm btn-default">ON</button>
+              <button className="btn btn-sm btn-primary active">OFF</button>
+            </div>
+          </div>
+        </div>
+        <table className="table mt-3">
           <thead>
             <tr>
               <th>#</th>
@@ -66,7 +87,7 @@ class PortfolioSection extends Component {
           </tbody>
         </table>
         <div className="float-right">
-            <span>Net asset value: {financial(this.state.portfolio.netAssetValue)}</span>
+          <span>Net asset value: {financial(this.state.portfolio.netAssetValue)}</span>
         </div>
       </div >
     )
@@ -74,7 +95,3 @@ class PortfolioSection extends Component {
 }
 
 export default PortfolioSection
-
-function financial(x) {
-  return Number.parseFloat(x).toFixed(2);
-}
